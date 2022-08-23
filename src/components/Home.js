@@ -11,7 +11,7 @@ const Home = () => {
 
   useEffect(() => {
     async function fetchData() {
-      axios.get("/products").then((res) => {
+      axios.get("/products/products").then((res) => {
         setProducts(res?.data);
         setColorOptions(
           getUniqueListBy(res.data, "colour").map((item) => {

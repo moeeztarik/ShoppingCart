@@ -11,7 +11,7 @@ const Product = ({
   return (
     <div className="product_Container">
       <div className="product">
-        <img src={image} width={200} height={200} />
+        <img src={image} width={200} height={200} alt="" />
         <div className="flex flex-col">
           <p className="">{name}</p>
           <p className="">{`Price: $${price}`}</p>
