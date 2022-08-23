@@ -18,11 +18,19 @@ const Product = ({
         </div>
 
         <div className="cartControl">
-          <button className="cartbtn" onClick={() => increment(index)}>
+          <button
+            data-testid="incrementing"
+            className="cartbtn"
+            onClick={() => increment(index)}
+          >
             +
           </button>
-          <p>{quantity}</p>
-          <button className="cartbtn" onClick={() => decrement(index)}>
+          <p data-testid="count">{quantity}</p>
+          <button
+            data-testid="decrement"
+            className="cartbtn"
+            onClick={() => decrement(index)}
+          >
             -
           </button>
         </div>
