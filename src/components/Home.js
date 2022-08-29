@@ -7,23 +7,28 @@ const Home = () => {
   const [products, setProducts] = useState([]);
   const [colorOptions, setColorOptions] = useState([]);
   const [color, setColor] = useState("");
-  const [price, setTotalPrice] = useState("");
+  const [price, setTotalPrice] = useState(0.00);
 
   useEffect(() => {
     async function fetchData() {
-      axios.get("/products/products").then((res) => {
-        setProducts(res?.data);
-        setColorOptions(
-          getUniqueListBy(res.data, "colour").map((item) => {
+      try {
+        axios.get("/products/products").then((res) => {
+          setProducts(res?.data);
+          let newColorsArr=getUniqueListBy(res.data, "colour").map((item) => {
             return {
               label: item.colour,
               value: item.colour,
             };
           })
-        );
-      });
+          newColorsArr.unshift({label:'All', value:'all'})
+          setColorOptions(newColorsArr);
+        });
+      }
+      catch(e) {
+      }
+     
     }
-    fetchData();
+   fetchData();
   }, []);
   const changeColor = (e) => {
     setColor(e.value);
@@ -38,7 +43,7 @@ const Home = () => {
         updateProduct[index].price * (updateProduct[index].quantity + 1);
       updateProduct[index].quantity = updateProduct[index].quantity + 1;
     }
-    setTotalPrice(getSumofArr(updateProduct, "totalPrice"));
+    setTotalPrice((getSumofArr(updateProduct, "totalPrice")).toFixed(2));
     setProducts(updateProduct);
   };
   const decrement = (index) => {
@@ -48,29 +53,35 @@ const Home = () => {
         updateProduct[index].price * (updateProduct[index].quantity - 1);
       updateProduct[index].quantity = updateProduct[index].quantity - 1;
     }
-    setTotalPrice(getSumofArr(updateProduct, "totalPrice"));
+    setTotalPrice((getSumofArr(updateProduct, "totalPrice")).toFixed(2));
     setProducts(updateProduct);
   };
   const removeItems = (index) => {
     let updateProduct = [...products];
-    if (updateProduct[index].quantity !== 0) {
+    if (updateProduct[index].quantity || updateProduct[index].quantity === 0 ) {
       let totalPrice =
         updateProduct[index].quantity * updateProduct[index].price;
       updateProduct[index].quantity = 0;
-      setTotalPrice(price - totalPrice);
+      updateProduct[index].totalPrice = 0;
+      setTotalPrice((price - totalPrice).toFixed(2));
+      setProducts(updateProduct);
     }
   };
+  if(products.length === 0) {
+    return  <span data-testid="loading">Loading data...</span>;
+  }
   return (
-    <div>
+    <div >
       <div className="container">
         <div className="header">
-          <h1>Select Color</h1>
+          <h1 data-testid="resolved">Select Color</h1>
         </div>
-        <div>
+        <div data-testid="dropdown" >
           <Select
             value={colorOptions.filter((item) => item.value === color)}
             options={colorOptions}
             onChange={changeColor}
+            data-testid="select_color_dropdown"
           />
         </div>
         <div className="header">
@@ -79,12 +90,11 @@ const Home = () => {
         </div>
 
         <ProductList
-          notes={products}
+          productsArr={products}
           color={color}
           increment={increment}
           decrement={decrement}
           removeItems={removeItems}
-          // handleAddNote={addNote}
         />
       </div>
     </div>

@@ -1,22 +1,22 @@
 import Product from "./Product";
 
 const ProductList = ({
-  notes,
-  handleDeleteNote,
+  productsArr,
   color,
   increment,
   decrement,
   removeItems,
 }) => {
   let products;
-  if (color) {
-    products = notes.filter((e) => e.colour === color);
+  if (color && color !== 'all') {
+    products = productsArr.filter((e) => e.colour === color);
   } else {
-    products = notes;
+    products = productsArr;
   }
   return (
     <div className="product-list">
-      {products.map((item, index) => (
+      {products.length > 0 && products.map((item, index) => (
+        <div key={item.id}>
         <Product
           id={item.id}
           color={item.colour}
@@ -29,6 +29,7 @@ const ProductList = ({
           index={index}
           removeItems={removeItems}
         />
+        </div>
       ))}
     </div>
   );

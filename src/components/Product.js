@@ -7,9 +7,10 @@ const Product = ({
   decrement,
   quantity,
   removeItems,
+  id
 }) => {
   return (
-    <div className="product_Container">
+    <div className="product_Container ">
       <div className="product">
         <img src={image} width={200} height={200} alt="" />
         <div className="flex flex-col">
@@ -19,7 +20,7 @@ const Product = ({
 
         <div className="cartControl">
           <button
-            data-testid="incrementing"
+            data-testid={`increment-${id}`}
             className="cartbtn"
             onClick={() => increment(index)}
           >
@@ -27,7 +28,7 @@ const Product = ({
           </button>
           <p data-testid="count">{quantity}</p>
           <button
-            data-testid="decrement"
+            data-testid={`decrement-${id}`}
             className="cartbtn"
             onClick={() => decrement(index)}
           >
