@@ -9,7 +9,7 @@ export function getSumofArr(arr, key) {
   }, 0);
 }
 
-export async function mokeApi() {
+export async function mockApi() {
   const response = await axios.get("https://my-json-server.typicode.com/benirvingplt/products/products");
   return response.data[0].id;
 }

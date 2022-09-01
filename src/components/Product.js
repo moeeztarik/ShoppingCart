@@ -3,40 +3,39 @@ const Product = ({
   image,
   price,
   index,
-  increment,
-  decrement,
   quantity,
-  removeItems,
+  cartActions,
   id
 }) => {
   return (
-    <div className="product_Container ">
-      <div className="product">
+    <div className="product-container">
+      <div className="product-info">
         <img src={image} width={200} height={200} alt="" />
         <div className="flex flex-col">
           <p className="">{name}</p>
           <p className="">{`Price: $${price}`}</p>
         </div>
-
+        <div className="flex flex-col item-center height-zero">
         <div className="cartControl">
-          <button
-            data-testid={`increment-${id}`}
-            className="cartbtn"
-            onClick={() => increment(index)}
-          >
-            +
-          </button>
-          <p data-testid="count">{quantity}</p>
-          <button
+        <button
             data-testid={`decrement-${id}`}
-            className="cartbtn"
-            onClick={() => decrement(index)}
+            className="cart-control-btn"
+            onClick={() => cartActions('decrement', index)}
           >
             -
           </button>
+          <p data-testid="count">{quantity}</p>
+          <button
+            data-testid={`increment-${id}`}
+            className="cart-control-btn"
+            onClick={() => cartActions('increment',index)}
+          >
+            +
+          </button>
         </div>
         <div>
-          <button onClick={() => removeItems(index)}>Remove Items</button>
+        <button className="remove-cart-btn" onClick={() => cartActions('removeItems',index)}>Remove</button>
+        </div>
         </div>
       </div>
     </div>
