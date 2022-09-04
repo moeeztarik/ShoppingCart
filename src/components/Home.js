@@ -96,7 +96,7 @@ const Home = () => {
         </div>
         <div className="header">
           <h1>Products</h1>
-          <h1>{`Total $${ parseFloat(price).toFixed(2)}`}</h1>
+          <h1 data-testid="price">{`Total $${ parseFloat(price).toFixed(2)}`}</h1>
         </div>
 
         <ProductList

@@ -8,7 +8,7 @@ const Product = ({
   id
 }) => {
   return (
-    <div className="product-container">
+    <div className="product-container "  data-testid={`container-${id}`}>
       <div className="product-info">
         <img src={image} width={200} height={200} alt="" />
         <div className="flex flex-col">
@@ -34,7 +34,8 @@ const Product = ({
           </button>
         </div>
         <div>
-        <button className="remove-cart-btn" onClick={() => cartActions('removeItems',index)}>Remove</button>
+        <button className="remove-cart-btn" data-testid={`removebtn-${id}`}
+  onClick={() => cartActions('removeItems',index)}>Remove</button>
         </div>
         </div>
       </div>

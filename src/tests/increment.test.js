@@ -18,6 +18,5 @@ describe('Api Response', () => {
     expect(await screen.findByText('Select Color')).toBeInTheDocument();
     expect(await screen.getByTestId('increment-2')).toBeInTheDocument();
     fireEvent.click(screen.getByTestId('increment-2'))
-    
   });
 });
